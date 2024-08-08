@@ -47,7 +47,7 @@ const UserRegistration = () => {
       formData
     ).then(response => {
       console.log(response.data);
-      if (response.data == 1) {
+      if (response.data === 1) {
         alert('User registered successfully!');
         navigate('/login');
       }else{

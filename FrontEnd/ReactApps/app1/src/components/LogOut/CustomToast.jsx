@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 const CustomToast = ({ message, onClose }) => {
-  const [show, setShow] = useState(true);
+  const [, setShow] = useState(true);
   const [timeElapsed, setTimeElapsed] = useState(0);
 
   useEffect(() => {

@@ -1,8 +1,8 @@
 import React from 'react';
 //import { Link } from 'react-router-dom';
-import LogoutButton from '../LogOut/LogoutButton';
 import { useAuth } from '../Authentication/AuthContext';
 import LoginButton from '../LogOut/LoginButton';
+import ProfileMenu from '../LogOut/ProfileMenu';
 
 const MainNavBar = ({toastRef}) => {
   
@@ -45,12 +45,12 @@ const MainNavBar = ({toastRef}) => {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="#/">
                   Contact Us
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="#/">
                   FAQ
                 </a>
               </li>
@@ -58,7 +58,7 @@ const MainNavBar = ({toastRef}) => {
             <div className="d-flex" role="search">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                {isAuthenticated ? <LogoutButton toastRef={toastRef}/> : <LoginButton/>}
+                {isAuthenticated ? <ProfileMenu toastRef={toastRef}/> : <LoginButton/>}
                 </li>
               </ul>
             </div>
