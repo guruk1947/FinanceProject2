@@ -1,0 +1,3 @@
+create a responsive react component using latest bootstrap version displayed at centrer of screen.
+This component contains input elements 
+This component will send 
