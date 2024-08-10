@@ -1,3 +1,5 @@
-create a responsive react component using latest bootstrap version displayed at centrer of screen.
-This component contains input elements 
-This component will send 
+create a responsive react component using latest bootstrap version via cdn link displayed at centrer of screen. Title of page is "Add Contact"
+This component contains a dropdown with "Search by " options Email as default and Mobile. When selected an option, display an input element to enter input for that particular option and search button should now be displayed. The selected input element ahould have "required" attribute.
+There should be a "Search" button. After clicking on search an axios request should be sent to search a contact info of particular email or mobile. If data is successfully recieved, the data{firstName, lastName, email} should be displayed as "First Name" and "Last Name" along with a "Add Contact" button.
+The data recieved as variable name email in data object should be there as an hidden element.
+After clicking on "Add Contact" button, another post axios request should be sent with email as a data member inside json.

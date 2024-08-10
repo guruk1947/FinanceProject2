@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 
-axios.defaults.baseURL = 'http://localhost:8080/api';
+axios.defaults.baseURL = 'https://localhost:8080/api';
 axios.defaults.headers.post["Content-Type"] = 'application/json';
 // Set default withCredentials to true
 axios.defaults.withCredentials = true;

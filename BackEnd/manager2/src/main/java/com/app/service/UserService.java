@@ -38,13 +38,20 @@ public class UserService {
     	else
     		return 0;
     }
+    public User updateUser(UserRegistry userRegistry) {
+    	userRegistryRepository.save(userRegistry);
+    	User user = StaticMethods.convertToUser(userRegistry);
+    	return userRepository.save(user);
+    }
 
     public List<User> getAllUsers() {
         return (List<User>) userRepository.findAll();
     }
 
     public User getUserById(Integer id) {
-        return userRepository.findById(id).orElse(null);
+        User u = userRepository.findById(id).orElse(null);
+        System.out.println(u.getInvestments());
+    	return u;
     }
 
     public void deleteUser(Integer id) {
@@ -64,11 +71,26 @@ public class UserService {
     	if(user != null)
     		return UserDto.convertToUserDto(user);
     	else
-    		user = userRepository.findByMob(u.getMob());
+    		user = userRepository.findByMobile(u.getMobile());
     	if(user != null)
     		return UserDto.convertToUserDto(user);
     	else return null;
     	
+    }
+    
+    public int addContact(User contact, int userId) {
+    	User user = getUserById(userId);
+    	User newContact = null; 
+    	newContact = userRepository.findByEmail(contact.getEmail());
+    	if(newContact == null)
+    		newContact = userRepository.findByMobile(contact.getMobile());
+    	user.addContact(newContact);
+    	User returnUser= null;
+    	returnUser = userRepository.save(user);
+    	if(returnUser != null)
+    		return 1;
+    	else
+    		return 0;
     }
 }
 

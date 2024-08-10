@@ -18,7 +18,7 @@ public class UserRegistry {
 	private String firstName;
 	private String lastName;
 	private char gender;
-	private long mob;
+	private long mobile;
 	private Date dob;
 	private Date doj; //date of joining the application
 	public int getUserRegistryId() {
@@ -69,11 +69,11 @@ public class UserRegistry {
 	public void setDoj(Date doj) {
 		this.doj = doj;
 	}
-	public long getMob() {
-		return mob;
+	public long getMobile() {
+		return mobile;
 	}
-	public void setMob(long mob) {
-		this.mob = mob;
+	public void setMobile(long mobile) {
+		this.mobile = mobile;
 	}
 	
 	

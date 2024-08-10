@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaUserCircle, FaPhone, FaSignOutAlt, FaCaretDown } from 'react-icons/fa';
 import { useAuth } from '../Authentication/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Axios_request from '../Axios_request';
 
 const ProfileMenu = ({toastRef}) => {
@@ -47,10 +47,10 @@ const ProfileMenu = ({toastRef}) => {
           <a className="dropdown-item" href="#/profile">
             <FaUserCircle className="mr-2" /> Profile
           </a>
-          <a className="dropdown-item" href="#/contacts">
+          <Link className="dropdown-item" to="/contacts">
             <FaUserCircle className="mr-2" /> Your Contacts
-          </a>
-          <a className="dropdown-item" href="#/contact">
+          </Link>
+          <a className="dropdown-item" href="#/contactUs">
             <FaPhone className="mr-2" /> Contact Us
           </a>
           <a className="dropdown-item" href="#/log" onClick={handleLogout}>

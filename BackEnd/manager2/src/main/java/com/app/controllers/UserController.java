@@ -2,8 +2,6 @@ package com.app.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +28,7 @@ public class UserController {
 	
     @Autowired
     private UserService userService;
+    
 
     @PostMapping("/register")
     public ResponseEntity<Integer> createUser(@RequestBody UserRegistry user) {
@@ -45,8 +44,9 @@ public class UserController {
     	if( u == null)
         return ResponseEntity.badRequest().build();
     	else {
-    		
-    		session.setAttribute("userId", u.getUserId());
+    		Integer id = u.getUserId();
+    		session.setAttribute("userId", id);
+    		System.out.println("Session ID in /login: " + session.getId()+" "+session.isNew());
     		return ResponseEntity.ok(u);
     	}
     }
@@ -77,10 +77,11 @@ public class UserController {
         return response;
     }
 
-    @PutMapping("/users/{id}")
-    public int updateUser(@PathVariable int id, @RequestBody UserRegistry user) {
+    @PutMapping("/users")
+    public User updateUser(@RequestBody UserRegistry user, HttpSession session) {
+    	Integer id = (Integer)session.getAttribute("userId");
         user.setUserRegistryId(id);
-        return userService.saveUser(user);
+        return userService.updateUser(user);
     }
 
     @DeleteMapping("/users/{id}")
@@ -88,9 +89,17 @@ public class UserController {
         userService.deleteUser(id);
     }
     
-    @PostMapping
+    @PostMapping("findUser")
     public ResponseEntity<UserDto> findUser(@RequestBody User u) {
     	
     	return ResponseEntity.ok(userService.findUser(u));
     }
+    
+    @PostMapping("/addContact")
+    public ResponseEntity<Integer> addContact(@RequestBody User contact, HttpSession session){
+    	Integer userId = (Integer)session.getAttribute("userId");
+    	return ResponseEntity.ok(userService.addContact(contact, userId));
+    }
+    
+    
 }

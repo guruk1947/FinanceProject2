@@ -26,7 +26,7 @@ public class User {
 	private String firstName;
 	private String lastName;
 	//private localdat
-	private long mob;
+	private long mobile;
 	@JsonProperty("isActive")
 	private boolean isActive;
 	@ManyToMany
@@ -65,13 +65,13 @@ public class User {
 	public User() {
 		super();
 	}
-	public User(String email, String firstName, String lastName, boolean isActive, long mob) {
+	public User(String email, String firstName, String lastName, boolean isActive, long mobile) {
 		super();
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.isActive = isActive;
-		this.mob = mob;
+		this.mobile = mobile;
 	}
 	public int getUserId() {
 		return userId;
@@ -174,11 +174,11 @@ public class User {
 	public void setSplitShares(Set<SplitShare> splitShares) {
 		this.splitShares = splitShares;
 	}
-	public long getMob() {
-		return mob;
+	public long getMobile() {
+		return mobile;
 	}
-	public void setMob(long mob) {
-		this.mob = mob;
+	public void setMobile(long mobile) {
+		this.mobile = mobile;
 	}
 	
 }

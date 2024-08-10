@@ -2,6 +2,8 @@ package com.app.methods;
 
 import java.security.SecureRandom;
 
+import com.app.dto.InvestmentDto;
+import com.app.entity.Investment;
 import com.app.entity.User;
 import com.app.entity.UserRegistry;
 
@@ -10,7 +12,7 @@ public class StaticMethods {
 	//Method to convert UserRegistry object to User object
 	public static User convertToUser(UserRegistry uR) {
 		// TODO Auto-generated method stub
-		return new User(uR.getEmail(), uR.getFirstName(), uR.getLastName(), true, uR.getMob());
+		return new User(uR.getEmail(), uR.getFirstName(), uR.getLastName(), true, uR.getMobile());
 	}
 	
 	// Method to generate a 6-digit OTP
@@ -32,4 +34,10 @@ public class StaticMethods {
         return otp.toString();
     }
 	
+    public static InvestmentDto convertToInvestmentDto(Investment i) {
+    	InvestmentDto invDto = new InvestmentDto(i.getInvestmentId(), i.getCategory(),
+    			i.getIssuer(), i.getQuantity(), i.getUnitCost(), i.getInvestmentDate(),
+    			i.getMaturityDate(), i.getMaturityUnitPrice(), i.getDescription());
+    	return invDto;
+    }
 }

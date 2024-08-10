@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { Container, Form, Button, Dropdown, DropdownButton, Card } from 'react-bootstrap';
+import Axios_request from '../../Axios_request';
 
 const CATEGORIES = [
   'Stocks/ETF/Mutual funds',
@@ -43,141 +42,137 @@ const InvestmentPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8080/api', formData, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+      await Axios_request("post",
+        "/investments",
+        formData
+      );
       alert('Investment added successfully!');
-      // Clear the form or handle the response accordingly
+      setFormData({
+        category: '',
+        issuer: '',
+        quantity: '',
+        unitCost: '',
+        investmentDate: '',
+        maturityDate: '',
+        maturityUnitPrice: '',
+        description: ''
+      });
     } catch (error) {
-      console.error('Error adding investment:', error);
+      //console.error('Error adding investment:', error);
       alert('Failed to add investment.');
     }
   };
+  
 
   return (
-    <Container style={styles.container}>
-      <Card style={styles.card}>
-        <Card.Body>
-          <DropdownButton
-            id="dropdown-basic-button"
-            title={selectedCategory || 'Select Category'}
-            onSelect={handleCategorySelect}
-            variant="primary"
-            style={styles.dropdown}
-          >
-            {CATEGORIES.map((category) => (
-              <Dropdown.Item key={category} eventKey={category}>
-                {category}
-              </Dropdown.Item>
-            ))}
-          </DropdownButton>
+    <div className="container d-flex justify-content-center align-items-center vh-100 bg-light">
+      <div className="card" style={{ maxWidth: '600px', width: '100%' }}>
+        <div className="card-body">
+          <div className="dropdown mb-3">
+            <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+              {selectedCategory || 'Select Category'}
+            </button>
+            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              {CATEGORIES.map((category) => (
+                <li key={category}>
+                  <a className="dropdown-item" href="#" onClick={() => handleCategorySelect(category)}>
+                    {category}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
           {selectedCategory && (
-            <Form onSubmit={handleSubmit} style={styles.form}>
-              <Form.Group controlId="formCategory">
-                
-                
-              </Form.Group>
-              <Form.Group controlId="formIssuer">
-                <Form.Label>Issuer(Company/Bank Name)</Form.Label>
-                <Form.Control
+            <form onSubmit={handleSubmit} className="d-flex flex-column">
+              <div className="mb-3">
+                <label htmlFor="issuer" className="form-label">Issuer (Company/Bank Name)</label>
+                <input
                   type="text"
+                  className="form-control"
+                  id="issuer"
                   name="issuer"
                   value={formData.issuer}
                   onChange={handleChange}
                 />
-              </Form.Group>
-              <Form.Group controlId="formQuantity">
-                <Form.Label>Quantity</Form.Label>
-                <Form.Control
+              </div>
+              <div className="mb-3">
+                <label htmlFor="quantity" className="form-label">Quantity</label>
+                <input
                   type="number"
+                  className="form-control"
+                  id="quantity"
                   name="quantity"
                   value={formData.quantity}
                   onChange={handleChange}
+                  required
                 />
-              </Form.Group>
-              <Form.Group controlId="formUnitCost">
-                <Form.Label>Unit Cost</Form.Label>
-                <Form.Control
+              </div>
+              <div className="mb-3">
+                <label htmlFor="unitCost" className="form-label">Unit Cost</label>
+                <input
                   type="number"
                   step="0.01"
+                  className="form-control"
+                  id="unitCost"
                   name="unitCost"
                   value={formData.unitCost}
                   onChange={handleChange}
+                  required
                 />
-              </Form.Group>
-              <Form.Group controlId="formInvestmentDate">
-                <Form.Label>Investment Date</Form.Label>
-                <Form.Control
+              </div>
+              <div className="mb-3">
+                <label htmlFor="investmentDate" className="form-label">Investment Date</label>
+                <input
                   type="date"
+                  className="form-control"
+                  id="investmentDate"
                   name="investmentDate"
                   value={formData.investmentDate}
                   onChange={handleChange}
+                  required
                 />
-              </Form.Group>
-              <Form.Group controlId="formMaturityDate">
-                <Form.Label>Maturity Date</Form.Label>
-                <Form.Control
+              </div>
+              <div className="mb-3">
+                <label htmlFor="maturityDate" className="form-label">Maturity(FD)/Current(Stocks,etc) Date</label>
+                <input
                   type="date"
+                  className="form-control"
+                  id="maturityDate"
                   name="maturityDate"
                   value={formData.maturityDate}
                   onChange={handleChange}
                 />
-              </Form.Group>
-              <Form.Group controlId="formMaturityUnitPrice">
-                <Form.Label>Maturity Unit Price</Form.Label>
-                <Form.Control
+              </div>
+              <div className="mb-3">
+                <label htmlFor="maturityUnitPrice" className="form-label">Maturity Unit Price</label>
+                <input
                   type="number"
                   step="0.01"
+                  className="form-control"
+                  id="maturityUnitPrice"
                   name="maturityUnitPrice"
                   value={formData.maturityUnitPrice}
                   onChange={handleChange}
                 />
-              </Form.Group>
-              <Form.Group controlId="formDescription">
-                <Form.Label>Description</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={3}
+              </div>
+              <div className="mb-3">
+                <label htmlFor="description" className="form-label">Description</label>
+                <textarea
+                  className="form-control"
+                  id="description"
+                  rows="3"
                   name="description"
                   value={formData.description}
                   onChange={handleChange}
-                />
-              </Form.Group>
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
-            </Form>
+                ></textarea>
+              </div>
+              <button type="submit" className="btn btn-primary">Submit</button>
+            </form>
           )}
-        </Card.Body>
-      </Card>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
-};
-
-const styles = {
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    backgroundColor: '#e9ecef'
-  },
-  card: {
-    width: '100%',
-    maxWidth: '600px',
-    padding: '20px',
-    borderRadius: '8px',
-    boxShadow: '0 0 10px rgba(0,0,0,0.1)'
-  },
-  dropdown: {
-    marginBottom: '20px'
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column'
-  }
 };
 
 export default InvestmentPage;

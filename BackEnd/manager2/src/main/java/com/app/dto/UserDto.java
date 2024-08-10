@@ -7,14 +7,14 @@ public class UserDto {
 	private String email;
 	private String firstName;
 	private String lastName;
-	private long mob;
+	private long mobile;
 	
-	public UserDto(String email, String firstName, String lastName, long mob) {
+	public UserDto(String email, String firstName, String lastName, long mobile) {
 		super();
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.mob = mob;
+		this.mobile = mobile;
 	}
 	public String getEmail() {
 		return email;
@@ -34,14 +34,14 @@ public class UserDto {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public long getMob() {
-		return mob;
+	public long getMobile() {
+		return mobile;
 	}
-	public void setMob(long mob) {
-		this.mob = mob;
+	public void setMobile(long mobile) {
+		this.mobile = mobile;
 	}
 	
 	public static UserDto convertToUserDto(User u) {
-		return new UserDto(u.getEmail(), u.getFirstName(), u.getLastName(), u.getMob());
+		return new UserDto(u.getEmail(), u.getFirstName(), u.getLastName(), u.getMobile());
 	}
 }
